@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TENTANG LIMITLESSMATH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ——— VARIABEL & GLOBAL ——— */
+        :root {
+            --color-primary: #E53935;
+            --color-text: #2c3e50;
+            --color-light-gray: #f4f7f6;
+            --color-red-light: #ff7979;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ——— HEADER / NAVBAR ——— */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .logo .highlight {
+            color: var(--color-primary);
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--color-text);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a.active,
+        nav a:hover {
+            color: var(--color-primary);
+        }
+
+        .btn-login {
+            border: 2px solid var(--color-primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background-color: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(229,57,53,0.2);
+        }
+
+        /* ——— LECTURER SECTION ——— */
+        .lecturer-section {
+            padding: 80px 0;
+            background-color: var(--color-light-gray);
+        }
+
+        .lecturer-card {
+            display: flex;
+            gap: 35px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            align-items: center;
+            max-width: 100%;
+            width: 100%;
+            margin: auto;
+            
+            /* Transisi halus untuk hover */
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        .lecturer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        .lecturer-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        }
+
+        .lecturer-details h2 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #E53935;
+            letter-spacing: 0.5px;
+        }
+
+        .lecturer-details h3 {
+            margin: 8px 0 14px;
+            font-size: 1.4rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .lecturer-details p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .lecturer-details p.campus {
+            background: #fff1f1;
+            padding: 10px 14px;
+            border-radius: 10px;
+            display: inline-block;
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        /* ——— CAMPUS SECTION ——— */
+        .campus-section {
+            padding: 80px 0;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        .campus-section img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            object-fit: cover;
+            transition: transform 0.3s ease-out;
+        }
+        
+        .campus-section img:hover {
+            transform: translateY(-5px);
+        }
+
+        .campus-section h2 {
+            font-size: 2rem;
+            margin-bottom: 18px;
+            color: var(--color-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .campus-section p {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 20px;
+        }
+
+        .campus-section a {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: all 0.3s ease-out;
+        }
+        
+        .campus-section a:hover {
+            background-color: var(--color-red-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(229, 57, 53, 0.3);
+        }
+
+        /* ——— TEAM SECTION ——— */
+        .about-us {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .team-member {
+            text-align: center;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            
+            /* Transisi halus */
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            box-sizing: border-box; 
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        .team-member img {
+            width: 130px;
+            height: 130px;
+            border-radius: 18px;
+            object-fit: cover;
+            margin-bottom: 18px;
+            border: 2px solid var(--color-primary);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .team-member h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--color-text);
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            margin: 5px 0;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .team-member a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-decoration: none;
+            margin-top: auto; 
+        }
+
+        .team-member a:hover {
+            color: var(--color-red-light);
+            text-decoration: underline;
+        }
+
+        /* ——— FOOTER ——— */
+        .footer {
+            padding: 35px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 60px;
+        }
+
+    </style>
+</head>
+<body>
+
+<header class="header container">
+    <a href="index.html" class="logo"><span class="highlight">LIMITLESS</span>MATH</a>
+    <nav>
+        <a href="index.html">BERANDA</a>
+        <a href="materi.html">MATERI</a>
+        <a href="latihan.html">LATIHAN SOAL</a>
+        <a href="kalkulator.html">KALKULATOR</a>
+        <a href="about.html" class="active">TENTANG</a>
+    </nav>
+    <a href="login.html" class="btn-login">LOGIN</a>
+</header>
+
+<section class="lecturer-section">
+    <div class="container">
+        <div class="lecturer-card">
+            <img src="img/dosen_indra.jpg" alt="Foto Dosen Pengampu">
+            <div class="lecturer-details">
+                <h2>Dosen Pengampu</h2>
+                <h3>Masnia, M.Pd,</h3>
+                <p>Proyek <b>LIMITLESSMATH</b> dikembangkan di bawah bimbingan beliau sebagai dosen pengampu Mata Kuliah Kalkulus</p>
+                <p class="campus">Fakultas Teknik Informatika • Universitas Dian Nusantara</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="campus-section">
+    <div class="container" style="display:flex; gap:45px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+        <div style="flex:1 1 450px;">
+            <h2>Universitas Dian Nusantara</h2>
+            <p>Universitas Dian Nusantara, atau disingkat UNDIRA, adalah sebuah universitas swasta yang pusatnya terletak Tanjung Duren Jakarta Barat DKI Jakarta. Selain itu, Universitas Dian Nusantara juga berlokasi di Cibubur Bekasi dan di Green Ville Kebon Jeruk.</p>
+            <a href="https://reguler.undira.ac.id/?gad_source=1&gad_campaignid=22241734944&gbraid=0AAAAA-xgg4YIF8OfLsp6_3ajfMf5GoHsM&gclid=CjwKCAiA8vXIBhAtEiwAf3B-g7iF0PfxP6Ygk_N_2gCXX16B3wLiH4tBnrMaigNfvMC8QEzEamdcFxoCQ20QAvD_BwE" target="_blank">Kunjungi Website UNDIRA</a>
+        </div>
+        <div style="flex:1 1 450px; text-align:center;">
+            <img src="img/undira.jpg" alt="Foto Kampus Universitas Dian Nusantara">
+        </div>
+    </div>
+</section>
+
+<section class="about-us container">
+    <h2 class="section-title">TIM PENGEMBANG</h2>
+    <div class="team-grid">
+        <div class="team-member">
+            <img src="img/azmiakmalalfikr.jpg" alt="PENGEMBANG 1">
+            <h3>AZMI AKMAL ALFIKR</h3>
+            <p>UI/UX WEBSITE</p>
+            <a href="https://instagram.com/azmialfikr" target="_blank">@AZMIALFIKR</a>
+        </div>
+        <div class="team-member">
+            <img src="img/valdis.jpg" alt="PENGEMBANG 2">
+            <h3>VALDIS MUTIARA ZHAMILLA</h3>
+            <p>KALKULATOR SYSTEM</p>
+            <a href="https://instagram.com/valdismutiaraaa" target="_blank">@VALDISMUTIARAAA</a>
+        </div>
+        <div class="team-member">
+            <img src="img/naufal.jpeg" alt="PENGEMBANG 3">
+            <h3>AHMAD NAUFAL</h3>
+            <p>MATERI KALKULUS</p>
+            <a href="https://instagram.com/madnaufall" target="_blank">@MADNAUFALL</a>
+        </div>
+        <div class="team-member">
+            <img src="img/fahmi.jpg" alt="PENGEMBANG 4">
+            <h3>MUHAMMAD FAHMI NAUFAL</h3>
+            <p>QUIZ HANDLE</p>
+            <a href="https://instagram.com/mhamdfahmy_" target="_blank">@MHAMDFAHMY_</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    LIMITLESSMATH © 2025 — TI UNDIRA
+</footer>
+
+</body>
+</html>
