@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KALKULATOR LENGKAP - LIMITLESSMATH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+</head>
+<body>
+
+    <div id="preloader"><div class="spinner"></div></div>
+
+    <header class="header container">
+        <a href="index.html" class="logo"><span class="highlight">LIMITLESS</span>MATH</a>
+        <div class="hamburger" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+        <nav class="nav-links" id="nav-list">
+            <a href="index.html">BERANDA</a>
+            <a href="materi.html">MATERI</a>
+            <a href="latihan.html">LATIHAN SOAL</a>
+            <a href="kalkulator.html" class="active">KALKULATOR</a>
+            <a href="about.html">TENTANG</a>
+        </nav>
+        <a href="login.html" class="btn-login">LOGIN</a>
+    </header>
+
+    <section class="calc-section">
+        <div class="container">
+            
+            <div class="dashboard-wrapper">
+                
+                <div class="db-sidebar">
+                    <div class="db-sidebar-header">MENU ALAT</div>
+                    <div class="db-menu">
+                        <button class="db-menu-btn active" onclick="openTab('pertidaksamaan')">1. Pertidaksamaan</button>
+                        <button class="db-menu-btn" onclick="openTab('gradien')">2. Gradien</button>
+                        <button class="db-menu-btn" onclick="openTab('grafik')">3. Grafik</button>
+                        <button class="db-menu-btn" onclick="openTab('rasional')">4. Rasional</button>
+                        <button class="db-menu-btn" onclick="openTab('komposisi')">5. Komposisi</button>
+                        <button class="db-menu-btn" onclick="openTab('kontinuitas')">6. Kekontinuan</button>
+                        <button class="db-menu-btn" onclick="openTab('turunan')">7. Turunan</button>
+                        <button class="db-menu-btn" onclick="openTab('limit')">8. Limit</button>
+                        <button class="db-menu-btn" onclick="openTab('ekstrem')">9. Ekstrem</button>
+                        <button class="db-menu-btn" onclick="openTab('integral')">10. Integral</button>
+                    </div>
+                </div>
+
+                <div class="db-content">
+                    
+                    <div id="pertidaksamaan" class="tab-content active">
+                        <h2 class="db-title">Uji Pertidaksamaan</h2>
+                        <p class="db-desc">Cek apakah nilai x memenuhi persamaan matematika.</p>
+                        <div class="db-form-group">
+                            <label>Pertidaksamaan:</label>
+                            <input type="text" class="db-input" id="inputIneq" placeholder="Contoh: x^2 - 5x + 6 > 0">
+                        </div>
+                        <div class="db-form-group">
+                            <label>Nilai Uji (x):</label>
+                            <input type="number" class="db-input" id="valIneq" placeholder="4">
+                        </div>
+                        <button class="db-btn-calc" onclick="hitungPertidaksamaan()">CEK HASIL</button>
+                        <div class="db-result-card" id="resIneq" style="display:none;">
+                            <span class="db-res-label">Status</span>
+                            <div class="db-res-value" id="outIneq">...</div>
+                        </div>
+                    </div>
+
+                    <div id="gradien" class="tab-content">
+                        <h2 class="db-title">Kalkulator Gradien</h2>
+                        <div class="db-form-group"><label>Fungsi f(x):</label><input type="text" class="db-input" id="inputGrad" placeholder="3x^2"></div>
+                        <div class="db-form-group"><label>Titik x:</label><input type="number" class="db-input" id="valGrad" placeholder="2"></div>
+                        <button class="db-btn-calc" onclick="hitungGradien()">HITUNG</button>
+                        <div class="db-result-card" id="resGrad" style="display:none;"><div class="db-res-value" id="outGrad">...</div></div>
+                    </div>
+
+                    <div id="grafik" class="tab-content">
+                        <h2 class="db-title">Plot Grafik</h2>
+                        <div class="db-form-group"><label>Fungsi f(x):</label><input type="text" class="db-input" id="inputPlot" placeholder="sin(x)"></div>
+                        <button class="db-btn-calc" onclick="gambarGrafik()">PLOT</button>
+                        <div id="plotArea"></div>
+                    </div>
+
+                    <div id="rasional" class="tab-content">
+                        <h2 class="db-title">Fungsi Rasional</h2>
+                        <div class="db-form-group"><label>Penyebut:</label><input type="text" class="db-input" id="inputDenom" placeholder="x - 2"></div>
+                        <div class="db-form-group"><label>Cek x:</label><input type="number" class="db-input" id="valDenom" placeholder="2"></div>
+                        <button class="db-btn-calc" onclick="hitungRasional()">CEK</button>
+                        <div class="db-result-card" id="resRas" style="display:none;"><div class="db-res-value" id="outRas">...</div></div>
+                    </div>
+
+                    <div id="komposisi" class="tab-content">
+                        <h2 class="db-title">Komposisi Fungsi</h2>
+                        <div class="db-flex-row">
+                            <div class="db-flex-col"><div class="db-form-group"><label>f(x):</label><input type="text" class="db-input" id="funcF" placeholder="x^2"></div></div>
+                            <div class="db-flex-col"><div class="db-form-group"><label>g(x):</label><input type="text" class="db-input" id="funcG" placeholder="x+1"></div></div>
+                        </div>
+                        <div class="db-form-group"><label>x:</label><input type="number" class="db-input" id="valComp" placeholder="2"></div>
+                        <button class="db-btn-calc" onclick="hitungKomposisi()">HITUNG</button>
+                        <div class="db-result-card" id="resComp" style="display:none;"><div class="db-res-value" id="outComp">...</div></div>
+                    </div>
+
+                    <div id="kontinuitas" class="tab-content">
+                        <h2 class="db-title">Kekontinuan</h2>
+                        <div class="db-form-group"><label>f(x):</label><input type="text" class="db-input" id="funcCont" placeholder="1/x"></div>
+                        <div class="db-form-group"><label>x:</label><input type="number" class="db-input" id="valCont" placeholder="0"></div>
+                        <button class="db-btn-calc" onclick="hitungKontinuitas()">CEK</button>
+                        <div class="db-result-card" id="resCont" style="display:none;"><div class="db-res-value" id="outCont">...</div></div>
+                    </div>
+
+                    <div id="turunan" class="tab-content">
+                        <h2 class="db-title">Turunan</h2>
+                        <div class="db-form-group"><label>f(x):</label><input type="text" class="db-input" id="inputTurunan" placeholder="x^3"></div>
+                        <button class="db-btn-calc" onclick="hitungTurunan()">CARI</button>
+                        <div class="db-result-card" id="resTur" style="display:none;"><div class="db-res-value" id="outTur">...</div></div>
+                    </div>
+
+                    <div id="limit" class="tab-content">
+                        <h2 class="db-title">Limit</h2>
+                        <div class="db-form-group"><label>f(x):</label><input type="text" class="db-input" id="inputLimit" placeholder="(x^2-1)/(x-1)"></div>
+                        <div class="db-form-group"><label>x -> c:</label><input type="number" class="db-input" id="valLimit" placeholder="1"></div>
+                        <button class="db-btn-calc" onclick="hitungLimit()">HITUNG</button>
+                        <div class="db-result-card" id="resLim" style="display:none;"><div class="db-res-value" id="outLim">...</div></div>
+                    </div>
+
+                    <div id="ekstrem" class="tab-content">
+                        <h2 class="db-title">Titik Ekstrem</h2>
+                        <div class="db-form-group"><label>f(x):</label><input type="text" class="db-input" id="inputEkstrem" placeholder="x^2 - 4x"></div>
+                        <div class="db-form-group"><label>Cek x:</label><input type="number" class="db-input" id="valEkstrem" placeholder="2"></div>
+                        <button class="db-btn-calc" onclick="hitungEkstrem()">CEK</button>
+                        <div class="db-result-card" id="resEks" style="display:none;"><div class="db-res-value" id="outEks">...</div></div>
+                    </div>
+
+                    <div id="integral" class="tab-content">
+                        <h2 class="db-title">Integral Tentu</h2>
+                        <div class="db-form-group"><label>f(x):</label><input type="text" class="db-input" id="inputIntegral" placeholder="2x"></div>
+                        <div class="db-flex-row">
+                            <div class="db-flex-col"><div class="db-form-group"><label>Batas a:</label><input type="number" class="db-input" id="intA" placeholder="0"></div></div>
+                            <div class="db-flex-col"><div class="db-form-group"><label>Batas b:</label><input type="number" class="db-input" id="intB" placeholder="5"></div></div>
+                        </div>
+                        <button class="db-btn-calc" onclick="hitungIntegral()">HITUNG</button>
+                        <div class="db-result-card" id="resInt" style="display:none;"><div class="db-res-value" id="outInt">...</div></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        LIMITLESSMATH © 2025 — TI UNDIRA
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
