@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KALKULATOR KALKULUS - LIMITLESSMATH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://unpkg.com/nerdamer@1.1.13/nerdamer.core.js"></script>
+    <script src="https://unpkg.com/nerdamer@1.1.13/Algebra.js"></script>
+    <script src="https://unpkg.com/nerdamer@1.1.13/Calculus.js"></script>
+    <script src="https://unpkg.com/nerdamer@1.1.13/Solve.js"></script>
+</head>
+<body>
+
+    <div id="preloader"><div class="spinner"></div></div>
+
+    <header class="header container">
+        <a href="index.html" class="logo"><span class="highlight">LIMITLESS</span>MATH</a>
+        <div class="hamburger" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+        <nav class="nav-links" id="nav-list">
+            <a href="index.html">BERANDA</a>
+            <a href="materi.html">MATERI</a>
+            <a href="latihan.html">LATIHAN SOAL</a>
+            <a href="kalkulator.html" class="active">KALKULATOR</a>
+            <a href="about.html">TENTANG</a>
+        </nav>
+        <a href="login.html" class="btn-login">LOGIN</a>
+    </header>
+
+    <section class="calc-section">
+        <div class="container">
+            <div class="calc-header">
+                <h1 class="section-title">KALKULATOR KALKULUS</h1>
+                <p>Gunakan alat bantu hitung otomatis untuk memverifikasi jawaban Anda.</p>
+            </div>
+
+            <div class="dashboard-wrapper" style="max-width: 900px; margin: 0 auto; flex-direction: column;">
+                <div style="padding: 30px; background: white; border-bottom: 2px solid #f4f7f6;">
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border: 2px solid #eee; text-align: right;">
+                        <input type="text" id="input-exp" placeholder="Masukkan fungsi (cth: x^2 + 2x)" 
+                               style="width: 100%; background: transparent; border: none; font-size: 2rem; text-align: right; font-family: 'Courier New', monospace; outline: none; font-weight: 700; color: var(--color-text);">
+                        <div id="result-preview" style="font-size: 1.2rem; color: var(--color-primary); font-weight: 600; margin-top: 10px; border-top: 1px solid #ddd; padding-top: 10px; min-height: 1.5em;">
+                            Siap menghitung...
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding: 30px; background: #fcfcfc;">
+                    <style>
+                        .calc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+                        .c-btn { 
+                            padding: 15px 5px; border: 1px solid #eee; border-radius: 10px; 
+                            font-family: 'Poppins', sans-serif; font-weight: 700; cursor: pointer;
+                            transition: all 0.2s; background: white; font-size: 0.9rem;
+                        }
+                        .c-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: var(--color-primary); color: var(--color-primary); }
+                        .c-btn-op { background: #fff1f1; color: var(--color-primary); }
+                        .c-btn-special { background: var(--color-primary); color: white; border: none; }
+                        .c-btn-special:hover { background: var(--color-primary-dark); color: white; }
+                    </style>
+
+                    <div class="calc-grid">
+                        <button class="c-btn c-btn-op" onclick="runCommand('solve')">SOLVE</button>
+                        <button class="c-btn c-btn-op" onclick="runCommand('simplify')">SMPL</button>
+                        <button class="c-btn c-btn-op" onclick="runCommand('diff')">d/dx</button>
+                        <button class="c-btn c-btn-op" onclick="runCommand('integrate')">∫</button>
+                        <button class="c-btn c-btn-op" onclick="runCommand('extreme')">EXT</button>
+
+                        <button class="c-btn" onclick="insertSyntax('limit(', ', x, 0)')">LIM</button>
+                        <button class="c-btn" onclick="insertSyntax('evaluate(', ', {x: 0})')">EVAL</button>
+                        <button class="c-btn" onclick="insertSyntax('grad(', ', 0)')">GRAD</button>
+                        <button class="c-btn" onclick="insertSyntax('compose(', ', g(x))')">f o g</button>
+                        <button class="c-btn" onclick="clearScreen()" style="color: #E53935;">AC</button>
+
+                        <button class="c-btn" onclick="addText('(')">(</button>
+                        <button class="c-btn" onclick="addText(')')">)</button>
+                        <button class="c-btn" onclick="addText('sqrt(')">√</button>
+                        <button class="c-btn" onclick="addText('^')">^</button>
+                        <button class="c-btn" onclick="deleteChar()">DEL</button>
+
+                        <button class="c-btn" onclick="addText('7')">7</button>
+                        <button class="c-btn" onclick="addText('8')">8</button>
+                        <button class="c-btn" onclick="addText('9')">9</button>
+                        <button class="c-btn" onclick="addText('sin(')">sin</button>
+                        <button class="c-btn" onclick="addText('cos(')">cos</button>
+
+                        <button class="c-btn" onclick="addText('4')">4</button>
+                        <button class="c-btn" onclick="addText('5')">5</button>
+                        <button class="c-btn" onclick="addText('6')">6</button>
+                        <button class="c-btn" onclick="addText('tan(')">tan</button>
+                        <button class="c-btn c-btn-op" onclick="addText('/')">÷</button>
+
+                        <button class="c-btn" onclick="addText('1')">1</button>
+                        <button class="c-btn" onclick="addText('2')">2</button>
+                        <button class="c-btn" onclick="addText('3')">3</button>
+                        <button class="c-btn c-btn-op" onclick="addText('*')">×</button>
+                        <button class="c-btn c-btn-op" onclick="addText('-')">-</button>
+
+                        <button class="c-btn" onclick="addText('0')">0</button>
+                        <button class="c-btn" onclick="addText('.')">.</button>
+                        <button class="c-btn" onclick="addText('x')">x</button>
+                        <button class="c-btn c-btn-op" onclick="addText('+')">+</button>
+                        <button class="c-btn c-btn-special" onclick="calculate()" style="grid-column: span 1;">=</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        LIMITLESSMATH © 2025 — TI UNDIRA
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        const inputField = document.getElementById('input-exp');
+        const resultPreview = document.getElementById('result-preview');
+
+        function cleanInput(str) {
+            str = str.replace(/\s+/g, '');
+            str = str.replace(/(\d)([a-zA-Z(])/g, '$1*$2');
+            str = str.replace(/(\))(\()/g, '$1*$2');
+            str = str.replace(/(\))(\d|[a-zA-Z])/g, '$1*$2');
+            return str;
+        }
+
+        function addText(txt) {
+            inputField.value += txt;
+            inputField.focus();
+        }
+
+        function clearScreen() {
+            inputField.value = '';
+            resultPreview.innerText = 'Siap menghitung...';
+            resultPreview.style.color = '#57606f';
+        }
+
+        function deleteChar() {
+            inputField.value = inputField.value.slice(0, -1);
+        }
+
+        function insertSyntax(prefix, suffix) {
+            let current = inputField.value;
+            inputField.value = prefix + current + suffix;
+            inputField.focus();
+        }
+
+        function checkLib() {
+            if (typeof nerdamer === 'undefined') {
+                resultPreview.innerText = "Loading Library... Coba lagi.";
+                resultPreview.style.color = "orange";
+                return false;
+            }
+            return true;
+        }
+
+        function runCommand(cmd) {
+            if (!checkLib()) return;
+            let rawInput = inputField.value;
+            if(!rawInput) { resultPreview.innerText = "Masukkan fungsi dulu!"; return; }
+            let expression = cleanInput(rawInput);
+            try {
+                let result = "";
+                if (cmd === 'solve') {
+                    let parts = expression.split(/[><=]/); 
+                    let clean = parts[0]; 
+                    let sol = nerdamer.solve(clean, 'x');
+                    result = `x = ${sol.toString()}`;
+                } else if (cmd === 'diff') {
+                    let d = nerdamer(`diff(${expression}, x)`);
+                    result = d.text();
+                } else if (cmd === 'integrate') {
+                    let i = nerdamer(`integrate(${expression}, x)`);
+                    result = `${i.text()} + C`;
+                } else if (cmd === 'simplify') {
+                    let s = nerdamer(expression).text();
+                    result = s;
+                } else if (cmd === 'extreme') {
+                    let d = nerdamer(`diff(${expression}, x)`);
+                    let roots = nerdamer.solve(d.text(), 'x');
+                    result = `Titik Stasioner: x = ${roots.toString()}`;
+                }
+                resultPreview.innerText = result;
+                resultPreview.style.color = "var(--color-text)"; 
+            } catch (error) {
+                resultPreview.innerText = "Error Syntax (Cek kurung)";
+                resultPreview.style.color = "#c0392b"; 
+            }
+        }
+
+        function calculate() {
+            if (!checkLib()) return;
+            let rawInput = inputField.value;
+            let trimmedInput = rawInput.replace(/\s+/g, ''); 
+            try {
+                if (trimmedInput.startsWith('grad(')) {
+                    let content = trimmedInput.substring(5, trimmedInput.length - 1);
+                    let parts = content.split(',');
+                    if (parts.length >= 2) {
+                        let func = cleanInput(parts[0]);
+                        let val = parts[parts.length-1].replace(')', '').trim();
+                        let d = nerdamer(`diff(${func}, x)`);
+                        let m = d.evaluate({x: val});
+                        resultPreview.innerText = `Gradien m = ${m.text()}`;
+                        return;
+                    }
+                }
+                if (trimmedInput.startsWith('compose(')) {
+                    let content = trimmedInput.substring(8, trimmedInput.length - 1);
+                    let parts = content.split(',');
+                    if (parts.length >= 2) {
+                        let f = cleanInput(parts[0]);
+                        let g = cleanInput(parts[1]);
+                        let res = nerdamer(f).sub('x', `(${g})`).expand();
+                        resultPreview.innerText = res.text();
+                        return;
+                    }
+                }
+                let expression = cleanInput(rawInput);
+                let res = nerdamer(expression);
+                resultPreview.innerText = res.text();
+            } catch (error) {
+                try {
+                    let expression = cleanInput(rawInput);
+                    let res = nerdamer(expression).evaluate();
+                    resultPreview.innerText = res.text();
+                } catch (e) {
+                    resultPreview.innerText = "Error (Format Salah)";
+                    resultPreview.style.color = "#c0392b";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
